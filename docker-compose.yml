@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: ./backend
+    container_name: netpulse-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - backend_data:/app/data
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@netpulse.local
+      - DJANGO_SUPERUSER_PASSWORD=admin123
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+
+  frontend:
+    build: ./frontend
+    container_name: netpulse-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  backend_data:

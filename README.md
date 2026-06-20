@@ -79,3 +79,11 @@ Monitor (background thread)
 ```
 
 El monitor no escribe a la base de datos en cada ping. Solo guarda los incidentes. Las metricas para la grafica se mantienen en un buffer en memoria. Cada hora se agregan los promedios a `HourlyStats` para el historico.
+
+## Docker
+
+```bash
+docker compose up --build
+```
+
+Backend en `http://localhost:8000`, frontend en `http://localhost:5173`. Superusuario `admin` / `admin123` se crea automaticamente. El contenedor del backend necesita `NET_RAW` para ICMP (pings).
